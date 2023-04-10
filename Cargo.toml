@@ -1,0 +1,20 @@
+[package]
+name = "binja_patterns"
+version = "0.1.0"
+edition = "2021"
+
+ [lib]
+ crate-type = ["cdylib"]
+
+[dependencies]
+patterns = "0.2.1"
+log = "0.4.17"
+static_init = "1.0.3"
+
+[dependencies.binaryninja]
+git = "https://github.com/Vector35/binaryninja-api.git"
+rev = "f8b8e2a"
+
+[dependencies.binaryninjacore-sys]
+git = "https://github.com/Vector35/binaryninja-api.git"
+rev = "f8b8e2a"
