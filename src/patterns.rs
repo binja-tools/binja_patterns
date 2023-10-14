@@ -76,7 +76,7 @@ pub fn create_pattern(view: &BinaryView, range: Range<u64>) {
             let pattern: Pattern = pattern;
 
             if pattern.matches(&data).take(2).count() > 1 {
-                if (r_bound - l_bound) / 2 <= 1 {
+                if (r_bound - l_bound) as f32 / 2.0 <= 1.0 {
                     let pivot = l_bound + (r_bound - l_bound) / 2;
                     (left, _) = pats.split_at(pivot + 1);
                     break;
@@ -86,7 +86,7 @@ pub fn create_pattern(view: &BinaryView, range: Range<u64>) {
                 let pivot = l_bound + (r_bound - l_bound) / 2;
                 (left, _) = pats.split_at(pivot);
             } else {
-                if (r_bound - l_bound) / 2 <= 1 {
+                if (r_bound - l_bound) as f32 / 2.0 <= 1.0 {
                     break;
                 }
                 r_bound = left.len();
@@ -171,7 +171,10 @@ fn instruction_pattern(
 }
 
 pub fn find_pattern(view: &BinaryView) {
-    let Some(pattern) = get_text_line_input("Enter pattern. Wildcards allowed:    ?    ??    .    ..", "Find Pattern") else {
+    let Some(pattern) = get_text_line_input(
+        "Enter pattern. Wildcards allowed:    ?    ??    .    ..",
+        "Find Pattern",
+    ) else {
         return;
     };
 

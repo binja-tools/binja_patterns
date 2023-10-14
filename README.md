@@ -10,13 +10,23 @@ https://rustup.rs/
   rustup install nightly
 ```
 
-### 2. Build
+### 2. Update deps
 
-```
-  cargo build --release
+If you are building for the stable release, uncomment the `branch` fields in `Cargo.toml`.
+
+Make sure you build against the latest version of the binja api:
+
+```sh
+cargo update
 ```
 
-### 3. Link to binja plugin folder
+### 3. Build
+
+```sh
+cargo build --release
+```
+
+### 4. Link to binja plugin folder
 
 #### Linux
 ```sh
