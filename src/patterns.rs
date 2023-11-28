@@ -178,6 +178,15 @@ pub fn find_pattern(view: &BinaryView) {
         return;
     };
 
+    let pattern = {
+        if let Some(pat) = pattern.strip_prefix('[') {
+            pat.trim_start_matches(|c: char| c.is_alphanumeric() || c.is_whitespace())
+                .trim_start_matches(']')
+        } else {
+            pattern.as_str()
+        }
+    };
+
     let pattern: Pattern = match pattern.parse() {
         Ok(pattern) => pattern,
         Err(e) => {

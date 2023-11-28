@@ -1,7 +1,4 @@
-use std::env;
-use std::fs::File;
-use std::io::BufReader;
-use std::path::PathBuf;
+use std::{env, fs::File, io::BufReader, path::PathBuf};
 
 #[cfg(target_os = "macos")]
 static LASTRUN_PATH: (&str, &str) = ("HOME", "Library/Application Support/Binary Ninja/lastrun");
@@ -12,7 +9,8 @@ static LASTRUN_PATH: (&str, &str) = ("HOME", ".binaryninja/lastrun");
 #[cfg(windows)]
 static LASTRUN_PATH: (&str, &str) = ("APPDATA", "Binary Ninja\\lastrun");
 
-// Check last run location for path to BinaryNinja; Otherwise check the default install locations
+// Check last run location for path to BinaryNinja; Otherwise check the default
+// install locations
 fn link_path() -> PathBuf {
     use std::io::prelude::*;
 
@@ -41,7 +39,8 @@ fn link_path() -> PathBuf {
 }
 
 fn main() {
-    // Use BINARYNINJADIR first for custom BN builds/configurations (BN devs/build server), fallback on defaults
+    // Use BINARYNINJADIR first for custom BN builds/configurations (BN devs/build
+    // server), fallback on defaults
     let install_path = env::var("BINARYNINJADIR")
         .map(PathBuf::from)
         .unwrap_or_else(|_| link_path());
