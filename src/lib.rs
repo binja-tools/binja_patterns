@@ -6,7 +6,7 @@ use binaryninja::{
         register, register_for_function, register_for_range, Command, FunctionCommand, RangeCommand,
     },
     function::Function,
-    logger,
+    logger::Logger,
 };
 use log::LevelFilter;
 
@@ -67,7 +67,7 @@ impl Command for FindNext {
 #[no_mangle]
 #[allow(non_snake_case)]
 pub extern "C" fn CorePluginInit() -> bool {
-    logger::init(LevelFilter::Info).expect("failed to initialize logging");
+    Logger::new("patterns").with_level(LevelFilter::Info).init();
 
     register_for_range(
         "Pattern\\Create Pattern for Range",
