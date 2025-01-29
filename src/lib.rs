@@ -1,9 +1,10 @@
 use std::ops::Range;
 
 use binaryninja::{
-    binaryview::BinaryView,
+    binary_view::BinaryView,
     command::{
-        register, register_for_function, register_for_range, Command, FunctionCommand, RangeCommand,
+        register_command, register_command_for_function, register_command_for_range, Command,
+        FunctionCommand, RangeCommand,
     },
     function::Function,
     logger::Logger,
@@ -69,22 +70,22 @@ impl Command for FindNext {
 pub extern "C" fn CorePluginInit() -> bool {
     Logger::new("patterns").with_level(LevelFilter::Info).init();
 
-    register_for_range(
+    register_command_for_range(
         "Pattern\\Create Pattern for Range",
         "Create a pattern for this address range",
         CreatePattern,
     );
-    register_for_function(
+    register_command_for_function(
         "Pattern\\Create Pattern for Function",
         "Create a pattern for this function",
         CreatePattern,
     );
-    register(
+    register_command(
         "Pattern\\Find Pattern",
         "Find an address using a pattern",
         FindPattern,
     );
-    register(
+    register_command(
         "Pattern\\Find Next",
         "Find next address reusing a pattern",
         FindNext,

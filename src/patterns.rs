@@ -8,7 +8,7 @@ use std::{
 };
 
 use binaryninja::{
-    binaryview::{BinaryView, BinaryViewBase, BinaryViewExt},
+    binary_view::{BinaryView, BinaryViewBase, BinaryViewExt},
     interaction::get_text_line_input,
 };
 use log::{error, info};
@@ -52,7 +52,7 @@ pub fn create_pattern(view: &BinaryView, range: Range<u64>) {
     info!("Full Pattern:");
     info!("{}", &pattern[..pattern.len()]);
 
-    let mut data = vec![0u8; view.len()];
+    let mut data = vec![0u8; view.len() as usize];
     load_binary(view, &mut data);
 
     let Ok(pat) = pattern.parse() else {
@@ -196,7 +196,7 @@ pub fn find_pattern(view: &BinaryView) {
     };
 
     let pattern = Box::pin(pattern);
-    let data = Pin::new(vec![0u8; view.len()]);
+    let data = Pin::new(vec![0u8; view.len() as usize]);
 
     let mut state = create_state(pattern, data);
     let data = &mut state.data;
