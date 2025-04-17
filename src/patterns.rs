@@ -206,7 +206,7 @@ pub fn find_pattern(view: &BinaryView) {
     find_and_navigate(view, state);
 }
 
-fn load_binary(view: &BinaryView, data: &mut [u8]) {
+pub(crate) fn load_binary(view: &BinaryView, data: &mut [u8]) {
     let sections = view.sections();
     let sections = sections.iter().map(|x| x.address_range());
 
