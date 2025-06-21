@@ -263,7 +263,7 @@ fn find_and_navigate(view: &BinaryView, mut state: FindState) {
         info!("Jmp location: {jmp:#x}");
         if view
             .file()
-            .navigate_to(view.file().current_view(), jmp)
+            .navigate_to(&view.file().current_view(), jmp)
             .is_err()
         {
             error!("Unable to jump to location in current view");
