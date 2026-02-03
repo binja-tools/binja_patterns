@@ -3,15 +3,14 @@ use std::ops::Range;
 use binaryninja::{
     binary_view::BinaryView,
     command::{
-        register_command, register_command_for_function, register_command_for_range, Command,
-        FunctionCommand, RangeCommand,
+        Command, FunctionCommand, RangeCommand, register_command, register_command_for_function,
+        register_command_for_range,
     },
     function::Function,
-    logger::Logger,
+    tracing_init,
 };
-use log::LevelFilter;
 
-use crate::patterns::{get_hash, META};
+use crate::patterns::{META, get_hash};
 
 struct CreatePattern;
 
@@ -63,10 +62,10 @@ impl Command for FindNext {
     }
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[allow(non_snake_case)]
 pub extern "C" fn CorePluginInit() -> bool {
-    Logger::new("patterns").with_level(LevelFilter::Info).init();
+    tracing_init!();
 
     register_command_for_range(
         "Pattern\\Create Pattern for Range",

@@ -1,15 +1,20 @@
 [package]
 name = "binja_patterns"
 version = "0.1.1"
-edition = "2021"
+edition = "2024"
 
 [lib]
 crate-type = ["cdylib"]
 
+[features]
+python = []
+
 [dependencies]
-patterns = "0.2.5"
-log = "0.4.27"
+tracing = "0.1.44"
 static_init = "1.0.3"
+
+[dependencies.patterns]
+git = "https://github.com/greaka/patterns.git"
 
 [dependencies.pyo3]
 version = "0.24.1"

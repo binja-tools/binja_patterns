@@ -1,4 +1,4 @@
-use std::{pin::Pin, str::FromStr};
+use std::pin::Pin;
 
 use binaryninja::binary_view::{BinaryView, BinaryViewBase};
 use patterns::{ParsePatternError, Pattern, Scanner};
@@ -9,6 +9,7 @@ use crate::patterns::load_binary;
 #[pyclass(frozen)]
 struct BvPattern {
     // todo: consider making this a Ref<BV>
+    #[allow(unused)]
     bv: BinaryView,
     data: Pin<Vec<u8>>,
 }
@@ -46,7 +47,8 @@ impl BvPattern {
 
 #[pyclass]
 struct Search {
-    scanner: Scanner<'static, 'static, 'static>,
+    scanner: Scanner<'static, 'static, 1, 64>,
+    #[allow(unused)]
     pattern: Pin<Box<Pattern>>,
 }
 

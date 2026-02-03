@@ -1,5 +1,5 @@
 use std::{
-    collections::{hash_map::DefaultHasher, HashMap},
+    collections::{HashMap, hash_map::DefaultHasher},
     hash::{Hash, Hasher},
     ops::{Deref, Range},
     pin::Pin,
@@ -11,9 +11,9 @@ use binaryninja::{
     binary_view::{BinaryView, BinaryViewBase, BinaryViewExt},
     interaction::get_text_line_input,
 };
-use log::{error, info};
 use patterns::{Pattern, Scanner};
 use static_init::dynamic;
+use tracing::{error, info};
 
 #[dynamic]
 pub static META: Mutex<HashMap<u64, FindState>> = Mutex::new(HashMap::new());
@@ -284,5 +284,5 @@ pub struct FindState {
     pattern: Pin<Box<Pattern>>,
     #[allow(unused)]
     data: Pin<Vec<u8>>,
-    scanner: Scanner<'static, 'static, 'static>,
+    scanner: Scanner<'static, 'static, 1, 64>,
 }
