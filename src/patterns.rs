@@ -232,6 +232,7 @@ fn read_data(view: &BinaryView, buf: &mut [u8], addr: Range<u64>) -> Result<(), 
 }
 
 fn create_state(pattern: Pin<Box<Pattern>>, data: Pin<Vec<u8>>) -> FindState {
+    // fixme: what on earth...
     let scanner = unsafe {
         Pattern::matches(
             &*(pattern.deref() as *const _),
@@ -269,6 +270,9 @@ fn find_and_navigate(view: &BinaryView, mut state: FindState) {
             error!("Unable to jump to location in current view");
         }
     } else {
+        {
+            META.lock().unwrap().remove(&get_hash(view));
+        }
         info!("Pattern not found");
     }
 }
